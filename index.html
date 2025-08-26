@@ -1,5 +1,299 @@
-<html>
+</div>
+</div>
+
+<!-- Modals for creating new content -->
+<div id="bookModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('bookModal')">&times;</span>
+    <h3>Create New Book Review</h3>
+    <form onsubmit="addBookCard(event)">
+      <div class="form-group">
+        <label>Book Title:</label>
+        <input type="text" id="bookTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Author:</label>
+        <input type="text" id="bookAuthor" required>
+      </div>
+      <div class="form-group">
+        <label>Genre:</label>
+        <input type="text" id="bookGenre" required>
+      </div>
+      <div class="form-group">
+        <label>Rating:</label>
+        <select id="bookRating" required>
+          <option value="">Select Rating</option>
+          <option value="1">⭐ (1/5)</option>
+          <option value="2">⭐⭐ (2/5)</option>
+          <option value="3">⭐⭐⭐ (3/5)</option>
+          <option value="4">⭐⭐⭐⭐ (4/5)</option>
+          <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Review:</label>
+        <textarea id="bookReview" placeholder="What did you think about this book?" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Add Book Review</button>
+    </form>
+  </div>
+</div>
+
+<div id="animeModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('animeModal')">&times;</span>
+    <h3>Create New Anime Review</h3>
+    <form onsubmit="addAnimeCard(event)">
+      <div class="form-group">
+        <label>Anime Title:</label>
+        <input type="text" id="animeTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Episodes/Type:</label>
+        <input type="text" id="animeEpisodes" placeholder="e.g. 12 episodes, Movie (120 min)" required>
+      </div>
+      <div class="form-group">
+        <label>Genres (comma-separated):</label>
+        <input type="text" id="animeGenres" placeholder="e.g. Action, Romance, Comedy" required>
+      </div>
+      <div class="form-group">
+        <label>Rating:</label>
+        <select id="animeRating" required>
+          <option value="">Select Rating</option>
+          <option value="1">⭐ (1/5)</option>
+          <option value="2">⭐⭐ (2/5)</option>
+          <option value="3">⭐⭐⭐ (3/5)</option>
+          <option value="4">⭐⭐⭐⭐ (4/5)</option>
+          <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Review:</label>
+        <textarea id="animeReview" placeholder="What did you think about this anime?" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Add Anime Review</button>
+    </form>
+  </div>
+</div>
+
+<div id="newsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('newsModal')">&times;</span>
+    <h3>Create New Blog Post</h3>
+    <form onsubmit="addNewsItem(event)">
+      <div class="form-group">
+        <label>Post Title:</label>
+        <input type="text" id="newsTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Content:</label>
+        <textarea id="newsContent" placeholder="Share your thoughts, updates, or experiences..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Add Blog Post</button>
+    </form>
+  </div>
+</div>
+
+<div id="shareModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('shareModal')">&times;</span>
+    <h3>Create New Share</h3>
+    <form onsubmit="addShareItem(event)">
+      <div class="form-group">
+        <label>Title:</label>
+        <input type="text" id="shareTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Image URL (optional):</label>
+        <input type="url" id="shareImage" placeholder="https://example.com/image.jpg">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <textarea id="shareDescription" placeholder="Tell us about this moment..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Add Share</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function showPage(pageId) {
+  // Hide all pages
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => page.classList.remove('active'));
+  
+  // Remove active class from all nav links
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => link.classList.remove('active'));
+  
+  // Show selected page
+  document.getElementById(pageId).classList.add('active');
+  
+  // Add active class to clicked nav link
+  event.target.classList.add('active');
+}
+
+// Modal functions
+function createBookCard() {
+  document.getElementById('bookModal').style.display = 'block';
+}
+
+function createAnimeCard() {
+  document.getElementById('animeModal').style.display = 'block';
+}
+
+function createNewsItem() {
+  document.getElementById('newsModal').style.display = 'block';
+}
+
+function createShareItem() {
+  document.getElementById('shareModal').style.display = 'block';
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  if (event.target.classList.contains('modal')) {
+    event.target.style.display = 'none';
+  }
+}
+
+// Add new book card
+function addBookCard(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('bookTitle').value;
+  const author = document.getElementById('bookAuthor').value;
+  const genre = document.getElementById('bookGenre').value;
+  const rating = document.getElementById('bookRating').value;
+  const review = document.getElementById('bookReview').value;
+  
+  const ratingStars = '⭐'.repeat(rating) + ` (${rating}/5)`;
+  
+  const bookCard = document.createElement('div');
+  bookCard.className = 'book-card';
+  bookCard.innerHTML = `
+    <h3>${title}</h3>
+    <div class="book-rating">${ratingStars}</div>
+    <p><strong>Author:</strong> ${author}</p>
+    <p><strong>Genre:</strong> ${genre}</p>
+    <p><strong>My Review:</strong> ${review}</p>
+    <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+  `;
+  
+  document.getElementById('book-grid').appendChild(bookCard);
+  
+  // Clear form and close modal
+  document.getElementById('bookTitle').value = '';
+  document.getElementById('bookAuthor').value = '';
+  document.getElementById('bookGenre').value = '';
+  document.getElementById('bookRating').value = '';
+  document.getElementById('bookReview').value = '';
+  closeModal('bookModal');
+}
+
+// Add new anime card
+function addAnimeCard(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('animeTitle').value;
+  const episodes = document.getElementById('animeEpisodes').value;
+  const genres = document.getElementById('animeGenres').value;
+  const rating = document.getElementById('animeRating').value;
+  const review = document.getElementById('animeReview').value;
+  
+  const ratingStars = '⭐'.repeat(rating) + ` (${rating}/5)`;
+  const genreList = genres.split(',').map(g => `<span class="anime-genre">${g.trim()}</span>`).join('');
+  
+  const animeCard = document.createElement('div');
+  animeCard.className = 'anime-card';
+  animeCard.innerHTML = `
+    <h3>${title}</h3>
+    <div class="book-rating">${ratingStars}</div>
+    <p><strong>Episodes:</strong> ${episodes}</p>
+    <div>${genreList}</div>
+    <p><strong>My Review:</strong> ${review}</p>
+    <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+  `;
+  
+  document.getElementById('anime-grid').appendChild(animeCard);
+  
+  // Clear form and close modal
+  document.getElementById('animeTitle').value = '';
+  document.getElementById('animeEpisodes').value = '';
+  document.getElementById('animeGenres').value = '';
+  document.getElementById('animeRating').value = '';
+  document.getElementById('animeReview').value = '';
+  closeModal('animeModal');
+}
+
+// Add new news item
+function addNewsItem(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('newsTitle').value;
+  const content = document.getElementById('newsContent').value;
+  const today = new Date().toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+  
+  const newsItem = document.createElement('div');
+  newsItem.className = 'news-item';
+  newsItem.innerHTML = `
+    <div class="news-date">${today}</div>
+    <h3>${title}</h3>
+    <p>${content}</p>
+    <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+  `;
+  
+  document.getElementById('news-container').appendChild(newsItem);
+  
+  // Clear form and close modal
+  document.getElementById('newsTitle').value = '';
+  document.getElementById('newsContent').value = '';
+  closeModal('newsModal');
+}
+
+// Add new share item
+function addShareItem(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('shareTitle').value;
+  const image = document.getElementById('shareImage').value;
+  const description = document.getElementById('shareDescription').value;
+  
+  const shareItem = document.createElement('div');
+  shareItem.className = 'share-item';
+  
+  const imageHtml = image ? 
+    `<img src="${image}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">` : 
+    `<div style="width: 100%; height: 150px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; margin-bottom: 10px;">No Image</div>`;
+  
+  shareItem.innerHTML = `
+    ${imageHtml}
+    <h4>${title}</h4>
+    <p>${description}</p>
+    <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+  `;
+  
+  document.getElementById('share-grid').appendChild(shareItem);
+  
+  // Clear form and close modal
+  document.getElementById('shareTitle').value = '';
+  document.getElementById('shareImage').value = '';
+  document.getElementById('shareDescription').value = '';
+  closeModal('shareModal');
+}
+</script><!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All About Me</title>
   <style>
     body {
@@ -7,70 +301,370 @@
       font-family: Times New Roman, serif;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
-
     header {
-      background-color: #001f3f; /* Dark blue */
+      background-color: #001f3f;
       color: white;
       text-align: center;
       padding: 10px 0;
     }
-
     nav {
       background-color: #E8F8FF;
       text-align: center;
       padding: 10px 0;
     }
-
     nav a {
       color: #333;
       text-decoration: none;
       padding: 0 10px;
+      cursor: pointer;
+      transition: color 0.3s ease;
     }
-
     nav a:hover {
       color: blue;
     }
-
+    nav a.active {
+      color: #001f3f;
+      font-weight: bold;
+    }
+    .page {
+      display: none;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .page.active {
+      display: block;
+    }
     #intro {
       display: flex;
       align-items: flex-start;
       justify-content: space-around;
-      padding: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
     }
-
     #intro p {
       flex: 1;
+      min-width: 300px;
       padding: 0 20px;
+      text-align: justify;
     }
-
     #intro img {
       flex: 1;
       max-width: 400px;
+      width: 100%;
       height: auto;
-      margin-right: 20px; /* Add margin to the right of the image */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Books page styles */
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .book-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+    }
+    .book-card h3 {
+      color: #001f3f;
+      margin-top: 0;
+    }
+    .book-rating {
+      color: #ff6b35;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    
+    /* Anime page styles */
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .anime-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .anime-card:hover {
+      transform: translateY(-5px);
+    }
+    .anime-card h3 {
+      color: #001f3f;
+      margin-top: 0;
+    }
+    .anime-genre {
+      background: #E8F8FF;
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin: 2px;
+    }
+    
+    /* News page styles */
+    .news-item {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .news-date {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    /* Shares page styles */
+    .share-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .share-item {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .share-item img {
+      width: 100%;
+      max-width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    
+    /* Create button styles */
+    .create-btn {
+      background-color: #001f3f;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .create-btn:hover {
+      background-color: #003366;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .close:hover {
+      color: #000;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #001f3f;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #E8F8FF;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: #001f3f;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .submit-btn {
+      background-color: #001f3f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: inherit;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background-color: #003366;
+    }
+    .delete-btn {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    .delete-btn:hover {
+      background-color: #cc0000;
+    }
+      #intro {
+        flex-direction: column;
+        align-items: center;
+      }
+      #intro img {
+        max-width: 300px;
+      }
+      .page {
+        padding: 10px;
+      }
     }
   </style>
 </head>
 <body>
-
 <header>
   <h1>All About Me</h1>
 </header>
-
 <nav>
-  <a href="https://docs.google.com/presentation/d/1EK1TgVza5JlJL-XspKEMmct5jRBla9XdZPbZjGS55H4/edit#slide=id.p">Books</a>|
-  <a href="https://docs.google.com/presentation/d/1uW3BAR3q1R6oIgYl4RnNp6uMa3ZMJo8J4460ob5XiFM/edit#slide=id.p">Anime</a>|
-  <a href="#">Updated News</a>|
-  <a href="#">Shares</a>
+  <a href="#" onclick="showPage('home')" class="nav-link active">Home</a> |
+  <a href="#" onclick="showPage('books')" class="nav-link">Books</a> |
+  <a href="#" onclick="showPage('anime')" class="nav-link">Anime</a> |
+  <a href="#" onclick="showPage('news')" class="nav-link">Updated News</a> |
+  <a href="#" onclick="showPage('shares')" class="nav-link">Shares</a>
 </nav>
 
-<div id="intro">
-  <img src="https://i.pinimg.com/564x/bc/5e/17/bc5e17f4f62d98e786c7f205e6f0bc4b.jpg" alt="Cheng Yu" width="400">
-  <p>
-    Hello everyone! My name is Cheng Yu and I'm excited to welcome you to my first blog. Being a high school freshman, I have a great interest in books and anime, and I am eager to share some of my favorites with you. In this blog, I will provide you with detailed reviews and recommendations of the books and anime that I love the most, so you can discover some incredible new titles. Besides that, I will also be sharing some of my daily life experiences through pictures and stories. This will help you to learn more about my hobbies, interests, and daily routines. I would love to hear your thoughts and feedback on my blog, as this will help me grow and improve, while also giving me a possibility to learn more about your interests. Thank you for stopping by, and I hope you enjoy reading my blog as much as I enjoy creating it.
-  </p>
+<!-- Home Page -->
+<div id="home" class="page active">
+  <div id="intro">
+    <img src="https://i.pinimg.com/564x/bc/5e/17/bc5e17f4f62d98e786c7f205e6f0bc4b.jpg" alt="Cheng Yu" width="400">
+    <p>
+      Hello everyone! My name is Cheng Yu and I'm excited to welcome you to my first blog. Being a high school freshman, I have a great interest in books and anime, and I am eager to share some of my favorites with you. In this blog, I will provide you with detailed reviews and recommendations of the books and anime that I love the most, so you can discover some incredible new titles. Besides that, I will also be sharing some of my daily life experiences through pictures and stories. This will help you to learn more about my hobbies, interests, and daily routines. I would love to hear your thoughts and feedback on my blog, as this will help me grow and improve, while also giving me a possibility to learn more about your interests. Thank you for stopping by, and I hope you enjoy reading my blog as much as I enjoy creating it.
+    </p>
+  </div>
 </div>
 
+<!-- Books Page -->
+<div id="books" class="page">
+  <h2 style="text-align: center; color: #001f3f;">My Book Recommendations</h2>
+  <p style="text-align: center; margin-bottom: 30px;">Share your favorite books with detailed reviews and recommendations!</p>
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="createBookCard()" class="create-btn">+ Create New Book Review</button>
+  </div>
+  
+  <div class="book-grid" id="book-grid">
+    <!-- Book cards will be added here -->
+  </div>
+</div>
+
+<!-- Anime Page -->
+<div id="anime" class="page">
+  <h2 style="text-align: center; color: #001f3f;">My Anime Recommendations</h2>
+  <p style="text-align: center; margin-bottom: 30px;">Share your favorite anime series and movies with detailed reviews!</p>
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="createAnimeCard()" class="create-btn">+ Create New Anime Review</button>
+  </div>
+  
+  <div class="anime-grid" id="anime-grid">
+    <!-- Anime cards will be added here -->
+  </div>
+</div>
+
+<!-- News Page -->
+<div id="news" class="page">
+  <h2 style="text-align: center; color: #001f3f;">Updated News & Blog Posts</h2>
+  <p style="text-align: center; margin-bottom: 30px;">Share your latest thoughts, discoveries, and life updates!</p>
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="createNewsItem()" class="create-btn">+ Create New Blog Post</button>
+  </div>
+  
+  <div id="news-container">
+    <!-- News items will be added here -->
+  </div>
+</div>
+
+<!-- Shares Page -->
+<div id="shares" class="page">
+  <h2 style="text-align: center; color: #001f3f;">Daily Life & Shares</h2>
+  <p style="text-align: center; margin-bottom: 30px;">Share glimpses into your daily life, hobbies, and the little things that make you happy!</p>
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="createShareItem()" class="create-btn">+ Create New Share</button>
+  </div>
+  
+  <div class="share-grid" id="share-grid">
+    <!-- Share items will be added here -->
+  </div>
+</div>
+
+<script>
+function showPage(pageId) {
+  // Hide all pages
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => page.classList.remove('active'));
+  
+  // Remove active class from all nav links
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => link.classList.remove('active'));
+  
+  // Show selected page
+  document.getElementById(pageId).classList.add('active');
+  
+  // Add active class to clicked nav link
+  event.target.classList.add('active');
+}
+</script>
 </body>
 </html>
